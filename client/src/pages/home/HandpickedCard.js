@@ -1,12 +1,24 @@
-import styles from './handpickedCard.module.css'
+import styles from "./handpickedCard.module.css";
 
-export default function HandpickedForYouCard({propertyData}) {
-    return <div className={styles.HandpickedContainer}>
-        <img className={styles.hanpickedImage} src={propertyData.image} alt='propertyImage' />
-        <section className={styles.propertyInfo}>
-            <h1>${propertyData.price}</h1>
-            <p>{propertyData.location}</p>
-            <p>{propertyData.beds} beds, {propertyData.baths} baths, {propertyData.space} sqft</p>
-        </section>
+export default function HandpickedForYouCard({ propertyData }) {
+  const { image, price, location, beds, baths, space } = propertyData;
+
+  return (
+    <div className={styles.cardContainer}>
+      <div className={styles.imageWrapper}>
+        <img
+          className={styles.cardImage}
+          src={image}
+          alt={`Property in ${location}`}
+        />
+      </div>
+      <section className={styles.propertyInfo}>
+        <h2 className={styles.price}>${price.toLocaleString("en-US")}</h2>
+        <p className={styles.location}>{location}</p>
+        <p className={styles.details}>
+          {beds} beds, {baths} baths, {space} sqft
+        </p>
+      </section>
     </div>
+  );
 }
