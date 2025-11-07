@@ -51,7 +51,7 @@
 }
 
 @media (min-width: 645px){
-    .siteLinksContainerMobile{
+    .siteLinksContainerMobile, .siteMobileMenuIcon{
         display: none;
     }
 }
