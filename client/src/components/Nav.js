@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router";
 
 export default function Nav() {
   const location = useLocation().pathname;
-  const [navStatus, setNavStatus] = useState(true);
+  const [navStatus, setNavStatus] = useState(false);
 
   return (
     <>
