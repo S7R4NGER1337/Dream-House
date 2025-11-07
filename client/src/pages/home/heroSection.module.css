@@ -2,7 +2,7 @@
     background:
         rgba(0, 0, 0, 0.5) url('/public/heroSectionBackground.png') no-repeat center/cover;
     background-blend-mode: darken;
-    height: 45rem;
+    min-height: 45rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +12,7 @@
 }
 
 .heroSectionTitle {
-    font-size: clamp(2rem, 3.75vw, 3.75rem);
+    font-size: clamp(2.1rem, 3.75vw, 3.75rem);
     font-weight: 750;
     color: white;
 }
@@ -53,3 +53,16 @@
     cursor: pointer;
 }
 
+@media (max-width: 910px) {
+  .heroSectionFilters {
+    width: 90%;
+    flex-direction: column;
+    overflow: visible;
+    align-items: stretch;
+  }
+
+  .heroSectionFilterInput {
+    min-width: unset;
+    width: 100%;
+  }
+}
