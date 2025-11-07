@@ -1,13 +1,15 @@
-import './App.css';
-import Nav from './components/Nav';
-import Home from './pages/home/Home';
+import "./App.css";
+import Nav from "./components/Nav";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
-    <div className="App">
-     <Nav />
-     <Home />
-    </div>
+    <>
+      <Nav />
+      <div style={{marginTop: '5rem'}}>
+        <Home />
+      </div>
+    </>
   );
 }
 

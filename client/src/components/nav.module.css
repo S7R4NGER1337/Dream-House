@@ -1,9 +1,13 @@
 .navContainer {
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 1em 5em;
     background-color: #f4f6f8cc;
     align-items: center;
+    height: 5rem;
 }
 
 .siteLink {
