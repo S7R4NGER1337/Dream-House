@@ -9,10 +9,16 @@ export default function Nav() {
   return (
     <>
       <div className={styles.navContainer}>
-        <section className={styles.siteLogoContainer}>
-          <img className={styles.siteLogo} src="/house-user-solid-full.svg" alt="siteLogo" />
-          <p className={styles.siteName}>Dream House</p>
-        </section>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <section className={styles.siteLogoContainer}>
+            <img
+              className={styles.siteLogo}
+              src="/house-user-solid-full.svg"
+              alt="siteLogo"
+            />
+            <p className={styles.siteName}>Dream House</p>
+          </section>
+        </Link>
         <section className={styles.siteLinksContainer}>
           <Link
             className={location === "/" ? styles.selected : styles.siteLink}
