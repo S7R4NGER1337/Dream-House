@@ -1,0 +1,12 @@
+.handpickedForYouContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e5e7eb;
+}
+
+.handpickedForYouItems{
+    display: flex;
+    gap: 1em;
+}
