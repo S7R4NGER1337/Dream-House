@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./handpickedCard.module.css";
 
 export default function HandpickedForYouCard({ propertyData }) {
+  const navigate = useNavigate()
   const { image, price, location, beds, baths, space } = propertyData;
 
+
   return (
-    <div className={styles.cardContainer}>
+    <div className={styles.cardContainer} onClick={() => navigate(`/property/${propertyData._id}`)}>
       <div className={styles.imageWrapper}>
         <img
           className={styles.cardImage}
