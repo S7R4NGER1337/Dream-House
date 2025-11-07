@@ -3,4 +3,53 @@
         rgba(0, 0, 0, 0.5) url('/public/heroSectionBackground.png') no-repeat center/cover;
     background-blend-mode: darken;
     height: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    text-align: center;
 }
+
+.heroSectionTitle {
+    font-size: clamp(2rem, 3.75vw, 3.75rem);
+    font-weight: 750;
+    color: white;
+}
+
+.heroSectionSubtitle {
+    font-size: clamp(.9rem, 1.1vw, 1.5rem);
+    color: white;
+    max-width: 50rem;
+}
+
+.heroSectionFilters {
+    margin-top: 1em;
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.137);
+    border-radius: 1em;
+}
+
+.heroSectionFilterInput {
+    flex: 1;
+    min-width: 15rem;
+}
+
+.heroSectionFilterInput,
+.heroSectionButton {
+    border-radius: .5em;
+    border: none;
+    padding: .5em;
+    font-size: 1.1rem;
+}
+
+.heroSectionButton {
+    padding: .5em 1.5em;
+    color: white;
+    font-weight: 600;
+    background-color: #004a7f;
+    cursor: pointer;
+}
+
