@@ -1,11 +1,19 @@
 .handpickedForYouItems {
     display: flex;
     gap: 2rem;
-    padding: 20px;
+    /* padding: 20px; */
     flex-wrap: wrap;
     justify-content: center;
     max-width: 80%;
     margin: 0 auto;
+}
+
+.handpickedInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .handpickedForYouContainer {
@@ -13,4 +21,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2em;
+}
+
+.viewAll {
+    margin-top: 1em;
+    padding: .7em 1.5em;
+    color: white;
+    font-weight: 600;
+    background-color: #004a7f;
+    cursor: pointer;
+    border: none;
+    border-radius: .5em;
+    font-size: 1.1rem;
+}
+
+.viewAll:hover {
+    transition: all 200ms;
+    background-color: #025c9c;
+}
+
+.handpickedForYouTitle {
+    font-size: clamp(1.7rem, 1.7vw, 3rem);
+}
+
+.handpickedForYouSubtitle {
+    font-size: clamp(1rem, 1vw, 1.5rem);
 }
