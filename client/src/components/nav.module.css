@@ -1,4 +1,28 @@
-.siteLink{
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 5em;
+    background-color: #f4f6f8cc;
+}
+
+.siteLink {
     text-decoration: none;
     color: black;
+    font-weight: 500;
+}
+
+.siteName{
+    font-weight: 700;
+
+}
+
+.siteLinksContainer {
+    display: flex;
+    gap: 1em;
+}
+
+.selected {
+    text-decoration: none;
+    color: rgb(0, 74, 127);
+    font-weight: 550;
 }
