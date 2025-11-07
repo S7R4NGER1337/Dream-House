@@ -1,0 +1,6 @@
+.heroSectionContainer {
+    background:
+        rgba(0, 0, 0, 0.5) url('/public/heroSectionBackground.png') no-repeat center/cover;
+    background-blend-mode: darken;
+    height: 45rem;
+}
