@@ -10,6 +10,7 @@ export default function Nav() {
     <>
       <div className={styles.navContainer}>
         <section className={styles.siteLogoContainer}>
+          <img className={styles.siteLogo} src="/house-user-solid-full.svg" alt="siteLogo" />
           <p className={styles.siteName}>Dream House</p>
         </section>
         <section className={styles.siteLinksContainer}>
