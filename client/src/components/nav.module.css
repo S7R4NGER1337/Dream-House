@@ -13,7 +13,6 @@
 
 .siteName{
     font-weight: 700;
-
 }
 
 .siteLinksContainer {
@@ -25,4 +24,34 @@
     text-decoration: none;
     color: rgb(0, 74, 127);
     font-weight: 550;
+}
+
+.siteLinksContainerMobile{
+    background-color: #f4f6f8cc;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: .5em;
+    gap: .5em;
+}
+
+.siteMobileMenuIcon{
+    width: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 645px){
+    .siteLinksContainer{
+        display: none;
+    }
+    .navContainer{
+        padding: 1em 0em;
+        justify-content: space-around;
+    }
+}
+
+@media (min-width: 645px){
+    .siteLinksContainerMobile{
+        display: none;
+    }
 }
