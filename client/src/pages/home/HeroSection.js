@@ -26,13 +26,20 @@ export default function HeroSection() {
           expert agents who are dedicated to finding your perfect home.
         </p>
         <div className={styles.heroSectionFilters}>
-          <input
-            className={styles.heroSectionFilterInput}
-            type="text"
-            placeholder="Enter a location or keyword"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
+          <section className={styles.searchSection}>
+            <img
+              className={styles.searchIcon}
+              src="/magnifying-glass-solid-full.svg"
+              alt="searchIcon"
+            />
+            <input
+              className={styles.heroSectionFilterInput}
+              type="text"
+              placeholder="Enter a location or keyword"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </section>
           <select
             name="type"
             className={styles.heroSectionFilterInput}

@@ -53,16 +53,37 @@
     cursor: pointer;
 }
 
-@media (max-width: 910px) {
-  .heroSectionFilters {
-    width: 90%;
-    flex-direction: column;
-    overflow: visible;
-    align-items: stretch;
-  }
+.searchIcon {
+    width: 2.6rem;
+    padding: .6em;
+    background-color: #fff;
+    border-bottom-left-radius: .5em;
+    border-top-left-radius: .5em;
+}
 
-  .heroSectionFilterInput {
-    min-width: unset;
-    width: 100%;
-  }
+.searchSection {
+    .heroSectionFilterInput {
+        border-bottom-left-radius: 0em;
+        border-top-left-radius: 0em;
+    }
+}
+
+.searchSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 910px) {
+    .heroSectionFilters {
+        width: 90%;
+        flex-direction: column;
+        overflow: visible;
+        align-items: stretch;
+    }
+
+    .heroSectionFilterInput {
+        min-width: unset;
+        width: 100%;
+    }
 }
