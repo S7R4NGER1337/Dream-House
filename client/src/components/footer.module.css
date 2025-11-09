@@ -1,0 +1,143 @@
+.footer {
+    background-color: #0f172a;
+    color: #fff;
+    padding: 50px 20px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex-basis: 18%;
+}
+
+.logoColumn {
+    flex-basis: 25%;
+    min-width: 200px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.homeIcon {
+    width: 2.5rem;
+    margin-right: 8px;
+}
+
+.missionText {
+    font-size: 0.95rem;
+    color: #a0a6b0;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.columnTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.linkList li {
+    margin-bottom: 10px;
+}
+
+.footerLink {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: #a0a6b0;
+    transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+    color: #fff;
+}
+
+.separator {
+    border: none;
+    height: 1px;
+    background-color: #3b4251;
+    margin: 20px 0;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #a0a6b0;
+    padding-top: 10px;
+}
+
+.socialsContainer {
+    display: flex;
+    gap: .4em;
+}
+
+.social {
+    cursor: pointer;
+    width: 2em;
+}
+
+@media (max-width: 992px) {
+    .mainContent {
+        justify-content: flex-start;
+        gap: 40px 30px;
+    }
+
+    .logoColumn {
+        flex-basis: 100%;
+        min-width: auto;
+        margin-bottom: 10px;
+    }
+
+    .column {
+        flex-basis: calc(33.33% - 20px);
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 30px 15px 15px;
+    }
+
+    .mainContent {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .column,
+    .logoColumn {
+        flex-basis: 100%;
+        min-width: auto;
+    }
+
+    .columnTitle {
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+    }
+
+    .linkList li {
+        margin-bottom: 5px;
+    }
+}
