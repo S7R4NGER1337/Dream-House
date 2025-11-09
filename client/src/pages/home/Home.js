@@ -1,6 +1,7 @@
 import BigBanner from "../../components/BigBanner";
 import HandpickedForYou from "./HandpickedForYou";
 import HeroSection from "./HeroSection";
+import TestimonialSection from "./Testiominals";
 import TheDream from "./TheDream";
 import styles from './home.module.css'
 
@@ -18,6 +19,7 @@ export default function Home() {
           buttonPath="/"
         />
       </div>
+      <TestimonialSection />
     </>
   );
 }
