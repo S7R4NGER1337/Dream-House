@@ -21,7 +21,7 @@ export default function TheDream() {
   ];
 
   return (
-    <div className={styles.theDreamContainer}>
+    <div className={`${styles.theDreamContainer} ${styles.pageSection}`}>
       <h1 className={styles.theDreamTitle}>The Dream Homes Difference</h1>
       <p className={styles.theDreamSubtitle}>
         We blend cutting-edge technology with personalized, expert service to
