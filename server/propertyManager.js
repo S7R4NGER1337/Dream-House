@@ -7,5 +7,5 @@ exports.getAll = async () => {
 
 exports.createProperty = async (data) => {
     const newProperty = await Property.create(data)
-    return allProperties
+    return newProperty
 }
