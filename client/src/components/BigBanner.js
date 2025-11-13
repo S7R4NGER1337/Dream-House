@@ -12,7 +12,7 @@ export default function BigBanner({
       <div className={styles.bannerContent}>
         <h2 className={styles.bannerTitle}>{title}</h2>
         <p className={styles.bannerSubtitle}>{subtitle}</p>
-        <Link href={buttonPath} className={styles.bannerButton}>
+        <Link to={buttonPath} className={styles.bannerButton}>
           {buttonName}
         </Link>
       </div>
