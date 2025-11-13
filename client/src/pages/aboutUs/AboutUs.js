@@ -1,3 +1,4 @@
+import BigBanner from "../../components/BigBanner";
 import styles from "./aboutUs.module.css";
 
 export default function AboutUs() {
@@ -33,9 +34,28 @@ export default function AboutUs() {
       </div>
       <div className={styles.ourTeamContainer}>
         <h1>Meet Our Team</h1>
-        <p>The driving force behind our success is our dedicated team of experienced professionals. Get to know the leaders committed to your real estate journey.</p>
+        <p>
+          The driving force behind our success is our dedicated team of
+          experienced professionals. Get to know the leaders committed to your
+          real estate journey.
+        </p>
         {/* {Render team members} */}
       </div>
+      <div className={styles.whyUs}>
+        <h1>Why Choose Us?</h1>
+        <p>
+          We offer a unique combination of technology, personalized service, and
+          deep market expertise to give you a distinct advantage in your
+          property search.
+        </p>
+        {/* {Render why choose us cards} */}
+      </div>
+      <BigBanner
+        title="Ready to Start Your Journey?"
+        subtitle="Whether you're looking to buy, sell, or simply explore your options, we're here to help. Reach out to our team for a personalized consultation."
+        buttonName="Get In Touch"
+        buttonPath="/"
+      />
     </div>
   );
 }
