@@ -4,7 +4,7 @@ const WhyChooseUsCard = ({ cardData }) => {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardIconWrapper}>
-        <span className={styles.cardIcon}>{cardData.icon}</span>
+        <img className={styles.cardIcon} src={cardData.icon} alt="icon" />
       </div>
       <h2 className={styles.cardTitle}>{cardData.title}</h2>
       <p className={styles.cardDescription}>{cardData.description}</p>

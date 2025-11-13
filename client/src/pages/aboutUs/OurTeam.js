@@ -7,21 +7,21 @@ const teamMembers = [
     name: 'Jane Doe',
     position: 'Founder & CEO',
     description: 'With over 20 years of experience, Jane leads with a vision to innovate the real estate industry and a deep commitment to client satisfaction.',
-    image: 'https://i.imgur.com/h5T2vL1.png',
+    image: '/unnamed (4).png',
   },
   {
     id: 2,
     name: 'John Smith',
     position: 'Lead Broker',
     description: "John's unparalleled market knowledge and negotiation skills ensure our clients always get the best possible outcome.",
-    image: 'https://i.imgur.com/W2R2G5A.png',
+    image: '/unnamed (5).png',
   },
   {
     id: 3,
     name: 'Maria Garcia',
     position: 'Head of Client Relations',
     description: "Maria ensures every client's journey is seamless and positive, providing support and guidance from start to finish.",
-    image: 'https://i.imgur.com/jW1j9tO.png',
+    image: '/unnamed (6).png',
   },
 ];
 

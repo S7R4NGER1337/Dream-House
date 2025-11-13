@@ -7,21 +7,21 @@ const whyChooseUsData = [
     title: "Innovative Strategy",
     description:
       "We leverage data-driven insights and the latest technology to create targeted marketing plans for sellers and find hidden gems for buyers.",
-    icon: "💡",
+    icon: "/lightbulb-solid-full.svg",
   },
   {
     id: 2,
     title: "Unwavering Commitment",
     description:
       "Your goals are our priority. We are your dedicated partners, offering transparent communication and expert advice every step of the way.",
-    icon: "🤝",
+    icon: "/handshake-solid-full.svg",
   },
   {
     id: 3,
     title: "Proven Expertise",
     description:
       "Our team consists of top-tier agents with a track record of success and a deep understanding of the ever-changing real estate landscape.",
-    icon: "🏆",
+    icon: "/graduation-cap-solid-full.svg",
   },
 ];
 
