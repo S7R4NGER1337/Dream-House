@@ -9,10 +9,10 @@ function App() {
   return (
     <>
       <Nav />
-      <div style={{marginTop: '5rem'}}>
+      <div style={{ marginTop: "5rem" }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
       </div>
       <Footer />

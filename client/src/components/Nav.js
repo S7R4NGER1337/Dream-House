@@ -44,11 +44,11 @@ export default function Nav() {
           </Link>
           <Link
             className={
-              location === "/aboutUs" ? styles.selected : styles.siteLink
+              location === "/about-us" ? styles.selected : styles.siteLink
             }
-            to="/aboutUs"
+            to="/about-us"
           >
-            AboutUs
+            About Us
           </Link>
           <Link
             className={
@@ -95,12 +95,12 @@ export default function Nav() {
           </Link>
           <Link
             className={
-              location === "/aboutUs" ? styles.selected : styles.siteLink
+              location === "/about-us" ? styles.selected : styles.siteLink
             }
-            to="/aboutUs"
+            to="/about-us"
             onClick={() => setNavStatus((prev) => !prev)}
           >
-            AboutUs
+            About Us
           </Link>
           <Link
             className={
