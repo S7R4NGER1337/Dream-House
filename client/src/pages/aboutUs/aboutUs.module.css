@@ -1,0 +1,23 @@
+.aboutUsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutUsHeading{
+    text-align: center;
+}
+
+.ourStorycontainer{
+    display: flex;
+}
+
+.ourTeamContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.whyUs{
+    display: flex;
+    flex-direction: column;
+}
