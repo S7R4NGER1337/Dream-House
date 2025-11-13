@@ -3,8 +3,13 @@ import styles from "./aboutUs.module.css";
 import OurStory from "./OurStory";
 import OurTeam from "./OurTeam";
 import WhyChooseUs from "./WhyChooseUs";
+import { useEffect } from "react";
 
 export default function AboutUs() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className={styles.aboutUsContainer}>
       <section className={styles.aboutUsHeading}>

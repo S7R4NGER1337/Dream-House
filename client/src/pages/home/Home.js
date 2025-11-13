@@ -3,9 +3,14 @@ import HandpickedForYou from "./HandpickedForYou";
 import HeroSection from "./HeroSection";
 import TestimonialSection from "./Testiominals";
 import TheDream from "./TheDream";
-import styles from './home.module.css'
+import styles from "./home.module.css";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <HeroSection />
