@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use('/property', propertyController)
 
-mongoose.connect(process.env.MONGODB_MONGODB_URI)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Db connected'))
     .catch(error => console.log(error))
 
