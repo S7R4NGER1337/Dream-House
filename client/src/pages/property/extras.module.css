@@ -1,0 +1,28 @@
+.extrasContainer {
+    margin-top: 2rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+
+.detailsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.detailItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.detailItem img {
+    width: 24px;
+    height: 24px;
+}

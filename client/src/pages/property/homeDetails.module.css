@@ -1,0 +1,24 @@
+.homeDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.aboutTitle {
+    font-size: 1.5rem;
+}
+
+.aboutSubitle {
+    color: #4b5563;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.6rem;
+}
+
+.aboutTitleContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
