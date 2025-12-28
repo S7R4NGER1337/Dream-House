@@ -22,3 +22,10 @@
     flex-direction: column;
     gap: 1em;
 }
+
+
+@media (max-width: 1050px){
+    .homeDetailsContainer{
+        width: 90%;
+    }
+}

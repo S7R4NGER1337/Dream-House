@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import ContactAgent from './ContactAgent';
 import HomeDetails from './HomeDetails';
 import styles from './property.module.css';
 
 export default function Property() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+    
     return (
         <>
             <div className={styles.propertyContainer}>
