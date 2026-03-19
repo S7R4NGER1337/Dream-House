@@ -18,14 +18,14 @@ const agentsData = [
   {
     name: 'John Smith',
     position: 'Lead Broker',
-    phone: '+1 (512) 555-0347',
+    phone: '+1 (512) 555-0134',
     email: 'john.smith@dreamhomes.com',
     photo: portrait('1560250097-0b93528c311a'),
   },
   {
     name: 'Maria Garcia',
     position: 'Head of Client Relations',
-    phone: '+1 (305) 555-0218',
+    phone: '+1 (305) 555-0167',
     email: 'maria.garcia@dreamhomes.com',
     photo: portrait('1573497019940-1c28c88b4f3e'),
   },

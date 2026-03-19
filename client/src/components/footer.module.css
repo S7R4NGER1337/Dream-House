@@ -46,6 +46,25 @@
     line-height: 1.5;
 }
 
+.contactInfo {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contactLine {
+    font-size: 0.875rem;
+    color: #a0a6b0;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: color 0.2s ease;
+}
+
+a.contactLine:hover {
+    color: #fff;
+}
+
 .columnTitle {
     font-size: 1.1rem;
     font-weight: 600;

@@ -53,6 +53,17 @@ const Footer = () => {
             <p className={styles.missionText}>
               Your key to finding the perfect home.
             </p>
+            <div className={styles.contactInfo}>
+              <a className={styles.contactLine} href="tel:+14155550100">
+                📞 +1 (415) 555-0100
+              </a>
+              <a className={styles.contactLine} href="mailto:hello@dreamhomes.com">
+                ✉️ hello@dreamhomes.com
+              </a>
+              <p className={styles.contactLine}>
+                📍 123 Real Estate Blvd, Suite 500<br />San Francisco, CA 94105
+              </p>
+            </div>
           </div>
 
           <LinkColumn title="Company" links={companyLinks} />

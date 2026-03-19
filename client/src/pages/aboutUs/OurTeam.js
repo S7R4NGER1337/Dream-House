@@ -10,6 +10,8 @@ const teamMembers = [
     position: 'Founder & CEO',
     description: 'With over 20 years of experience, Jane leads with a vision to innovate the real estate industry and a deep commitment to client satisfaction.',
     image: portrait('1494790108377-be9c29b29330'),
+    phone: '+1 (415) 555-0192',
+    email: 'jane.doe@dreamhomes.com',
   },
   {
     id: 2,
@@ -17,6 +19,8 @@ const teamMembers = [
     position: 'Lead Broker',
     description: "John's unparalleled market knowledge and negotiation skills ensure our clients always get the best possible outcome.",
     image: portrait('1560250097-0b93528c311a'),
+    phone: '+1 (512) 555-0134',
+    email: 'john.smith@dreamhomes.com',
   },
   {
     id: 3,
@@ -24,6 +28,8 @@ const teamMembers = [
     position: 'Head of Client Relations',
     description: "Maria ensures every client's journey is seamless and positive, providing support and guidance from start to finish.",
     image: portrait('1573497019940-1c28c88b4f3e'),
+    phone: '+1 (305) 555-0167',
+    email: 'maria.garcia@dreamhomes.com',
   },
 ];
 

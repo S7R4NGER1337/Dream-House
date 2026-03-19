@@ -162,8 +162,8 @@ export default function Contact() {
             <div className={styles.agentList}>
               {[
                 { name: 'Jane Doe', role: 'Founder & CEO', phone: '+1 (415) 555-0192', photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&h=80&q=80' },
-                { name: 'John Smith', role: 'Lead Broker', phone: '+1 (512) 555-0347', photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=80&h=80&q=80' },
-                { name: 'Maria Garcia', role: 'Head of Client Relations', phone: '+1 (305) 555-0218', photo: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=80&h=80&q=80' },
+                { name: 'John Smith', role: 'Lead Broker', phone: '+1 (512) 555-0134', photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=80&h=80&q=80' },
+                { name: 'Maria Garcia', role: 'Head of Client Relations', phone: '+1 (305) 555-0167', photo: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=80&h=80&q=80' },
               ].map(agent => (
                 <div key={agent.name} className={styles.agentRow}>
                   <img src={agent.photo} alt={agent.name} className={styles.agentPhoto} />
