@@ -8,6 +8,7 @@ const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
 const Services = lazy(() => import("./pages/services/Services"));
 const Property = lazy(() => import("./pages/property/Property"));
 const Properties = lazy(() => import("./pages/properties/Properties"));
+const Contact = lazy(() => import("./pages/contact/Contact"));
 
 function NotFound() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/property/:id" element={<Property />} />
             <Route path="/services" element={<Services />} />
             <Route path="/properties" element={<Properties />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
