@@ -1,74 +1,76 @@
-import styles from "./heroSection.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./heroSection.module.css";
 
 export default function HeroSection() {
-  const [location, setLocation] = useState("");
-  const [propertyType, setPropertyType] = useState("");
-  const [priceRange, setPriceRange] = useState("");
+  const [search, setSearch] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [beds, setBeds] = useState("");
+  const navigate = useNavigate();
 
   const handleSearch = () => {
-    const filters = {
-      location,
-      propertyType,
-      priceRange,
-    };
-    console.log("filters:", filters);
+    const params = new URLSearchParams();
+    if (search.trim()) params.set("search", search.trim());
+    if (maxPrice) params.set("maxPrice", maxPrice);
+    if (beds) params.set("beds", beds);
+    navigate(`/properties?${params.toString()}`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
   };
 
   return (
-    <>
-      <div className={styles.heroSectionContainer}>
-        <h1 className={styles.heroSectionTitle}>
-          Your Journey Home Starts Here
-        </h1>
-        <p className={styles.heroSectionSubtitle}>
-          Discover a curated selection of premier properties and connect with
-          expert agents who are dedicated to finding your perfect home.
-        </p>
-        <div className={styles.heroSectionFilters}>
-          <section className={styles.searchSection}>
-            <img
-              className={styles.searchIcon}
-              src="/magnifying-glass-solid-full.svg"
-              alt="searchIcon"
-            />
-            <input
-              className={styles.heroSectionFilterInput}
-              type="text"
-              placeholder="Enter a location or keyword"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </section>
-          <select
-            name="type"
+    <div className={styles.heroSectionContainer}>
+      <h1 className={styles.heroSectionTitle}>
+        Your Journey Home Starts Here
+      </h1>
+      <p className={styles.heroSectionSubtitle}>
+        Discover a curated selection of premier properties and connect with
+        expert agents who are dedicated to finding your perfect home.
+      </p>
+      <div className={styles.heroSectionFilters}>
+        <section className={styles.searchSection}>
+          <img
+            className={styles.searchIcon}
+            src="/magnifying-glass-solid-full.svg"
+            alt="searchIcon"
+          />
+          <input
             className={styles.heroSectionFilterInput}
-            value={propertyType}
-            onChange={(e) => setPropertyType(e.target.value)}
-          >
-            <option value="">Property Type</option>
-            <option value="House">House</option>
-            <option value="Apartment">Apartment</option>
-            <option value="Condo">Condo</option>
-          </select>
-          <select
-            name="price"
-            className={styles.heroSectionFilterInput}
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.target.value)}
-          >
-            <option value="">Price Range</option>
-            <option value="200-400">$200k - $400k</option>
-            <option value="400-600">$400k - $600k</option>
-            <option value="600-800">$600k - $800k</option>
-            <option value="800+">$800k+</option>
-          </select>
-
-          <button className={styles.heroSectionButton} onClick={handleSearch}>
-            Search
-          </button>
-        </div>
+            type="text"
+            placeholder="City, neighborhood or name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </section>
+        <select
+          className={styles.heroSectionFilterInput}
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        >
+          <option value="">Any Price</option>
+          <option value="1000000">Up to $1,000,000</option>
+          <option value="1500000">Up to $1,500,000</option>
+          <option value="2000000">Up to $2,000,000</option>
+          <option value="3000000">Up to $3,000,000</option>
+        </select>
+        <select
+          className={styles.heroSectionFilterInput}
+          value={beds}
+          onChange={(e) => setBeds(e.target.value)}
+        >
+          <option value="">Any Beds</option>
+          <option value="2">2+ Beds</option>
+          <option value="3">3+ Beds</option>
+          <option value="4">4+ Beds</option>
+          <option value="5">5+ Beds</option>
+        </select>
+        <button className={styles.heroSectionButton} onClick={handleSearch}>
+          Search
+        </button>
       </div>
-    </>
+    </div>
   );
 }

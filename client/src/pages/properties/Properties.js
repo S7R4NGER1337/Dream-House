@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './properties.module.css'
 
 export default function Properties() {
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [search, setSearch] = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
-  const [minBeds, setMinBeds] = useState('')
   const navigate = useNavigate()
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const search = searchParams.get('search') ?? ''
+  const maxPrice = searchParams.get('maxPrice') ?? ''
+  const minBeds = searchParams.get('beds') ?? ''
+
+  const setParam = (key, value) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      if (value) next.set(key, value)
+      else next.delete(key)
+      return next
+    }, { replace: true })
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -24,7 +35,8 @@ export default function Properties() {
   }, [])
 
   const filtered = properties.filter(p => {
-    const matchesSearch = p.location.toLowerCase().includes(search.toLowerCase()) ||
+    const matchesSearch = !search ||
+      p.location.toLowerCase().includes(search.toLowerCase()) ||
       p.name.toLowerCase().includes(search.toLowerCase())
     const matchesPrice = !maxPrice || p.price <= Number(maxPrice)
     const matchesBeds = !minBeds || p.beds >= Number(minBeds)
@@ -44,12 +56,12 @@ export default function Properties() {
           type="text"
           placeholder="Search by city or name..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={e => setParam('search', e.target.value)}
         />
         <select
           className={styles.filterInput}
           value={maxPrice}
-          onChange={e => setMaxPrice(e.target.value)}
+          onChange={e => setParam('maxPrice', e.target.value)}
         >
           <option value="">Any Price</option>
           <option value="1000000">Up to $1,000,000</option>
@@ -61,7 +73,7 @@ export default function Properties() {
         <select
           className={styles.filterInput}
           value={minBeds}
-          onChange={e => setMinBeds(e.target.value)}
+          onChange={e => setParam('beds', e.target.value)}
         >
           <option value="">Any Beds</option>
           <option value="1">1+ Beds</option>
