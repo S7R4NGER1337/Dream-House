@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
+  agent: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent' },
   name: String,
   price: Number,
   location: String,

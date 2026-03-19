@@ -145,7 +145,7 @@ export default function Property() {
 
             <div className={styles.homeDataContainer}>
                 <HomeDetails property={property} />
-                <ContactAgent />
+                <ContactAgent agent={property.agent} />
             </div>
 
             {lightboxIndex !== null && (
