@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./services.module.css";
 
 export default function Services() {
+  const navigate = useNavigate();
   return (
     <div className={styles.servicesContainer}>
       <section className={styles.aboutUsHeading}>
@@ -51,7 +53,7 @@ export default function Services() {
               </li>
             </ul>
 
-            <button className={styles.callToActionButton}>
+            <button className={styles.callToActionButton} onClick={() => navigate("/properties")}>
               Start Your Home Search
             </button>
           </div>
@@ -97,7 +99,7 @@ export default function Services() {
               </li>
             </ul>
 
-            <button className={styles.callToActionButton}>
+            <button className={styles.callToActionButton} onClick={() => navigate("/contact")}>
               Get a Free Home Valuation
             </button>
           </div>
@@ -107,7 +109,7 @@ export default function Services() {
         <div className={styles.homeSearchContainer}>
           <div className={styles.imageColumn}>
             <img
-              src="/unnamed (2).png"
+              src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
               alt="Modern Home"
               className={styles.homeImage}
             />
@@ -142,7 +144,7 @@ export default function Services() {
               </li>
             </ul>
 
-            <button className={styles.callToActionButton}>
+            <button className={styles.callToActionButton} onClick={() => navigate("/properties")}>
               Browse Rental Listings
             </button>
           </div>

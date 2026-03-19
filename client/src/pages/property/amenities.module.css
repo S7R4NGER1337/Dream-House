@@ -37,7 +37,7 @@
 }
 
 .amenitiesTtitle{
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
 }
 @media (max-width: 900px) {
     .amenity {

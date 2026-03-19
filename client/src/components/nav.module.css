@@ -6,6 +6,8 @@
     justify-content: space-between;
     padding: 1em 5em;
     background-color: #f4f6f8cc;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     align-items: center;
     height: 5rem;
     z-index: 99999;
@@ -15,20 +17,22 @@
     text-decoration: none;
     color: black;
     font-weight: 500;
+    padding: 0.25rem 0;
+    /* Minimum touch target via padding context */
 }
 
-.siteLogoContainer{
+.siteLogoContainer {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 1em;
 }
 
-.siteLogo{
+.siteLogo {
     width: 2.5rem;
 }
 
-.siteName{
+.siteName {
     font-weight: 700;
 }
 
@@ -41,38 +45,57 @@
     text-decoration: none;
     color: rgb(0, 74, 127);
     font-weight: 600;
+    padding: 0.25rem 0;
 }
 
-.siteLinksContainerMobile{
-    position: fixed; 
+.siteLinksContainerMobile {
+    position: fixed;
     top: 5rem;
     width: 100%;
-    z-index: 99998; 
-    background-color: #f4f6f8cc;
+    z-index: 99998;
+    background-color: #f4f6f8ee;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: .5em 0;
-    gap: .5em;
+    padding: 0.75em 0;
+    gap: 0;
+    max-height: calc(100vh - 5rem);
+    overflow-y: auto;
 }
 
-.siteMobileMenuIcon{
+.siteLinksContainerMobile .siteLink,
+.siteLinksContainerMobile .selected {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.siteMobileMenuIcon {
     width: 1.5rem;
     cursor: pointer;
+    /* Larger tap target */
+    padding: 0.5rem;
+    margin: -0.5rem;
 }
 
-@media (max-width: 715px){
-    .siteLinksContainer{
+@media (max-width: 715px) {
+    .siteLinksContainer {
         display: none;
     }
-    .navContainer{
-        padding: 1em 0em;
-        justify-content: space-around;
+
+    .navContainer {
+        padding: 1em 1.25rem;
+        justify-content: space-between;
     }
 }
 
-@media (min-width: 716px){
-    .siteLinksContainerMobile, .siteMobileMenuIcon{
+@media (min-width: 716px) {
+    .siteLinksContainerMobile,
+    .siteMobileMenuIcon {
         display: none;
     }
 }

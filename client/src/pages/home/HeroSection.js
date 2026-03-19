@@ -20,8 +20,15 @@ export default function HeroSection() {
     if (e.key === "Enter") handleSearch();
   };
 
+  const bgStyle = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}/heroSectionBackground.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
+
   return (
-    <div className={styles.heroSectionContainer}>
+    <div className={styles.heroSectionContainer} style={bgStyle}>
       <h1 className={styles.heroSectionTitle}>
         Your Journey Home Starts Here
       </h1>

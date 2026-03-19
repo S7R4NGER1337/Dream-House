@@ -1,11 +1,22 @@
 .handpickedForYouItems {
     display: flex;
     gap: 2rem;
-    /* padding: 20px; */
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 80%;
+    max-width: 90%;
     margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .handpickedForYouItems {
+        max-width: 95%;
+        gap: 1.25rem;
+    }
+
+    .handpickedForYouContainer {
+        padding: 3em 0;
+        gap: 2em;
+    }
 }
 
 .handpickedInfo {
@@ -28,6 +39,7 @@
 .viewAll {
     margin-top: 1em;
     padding: .7em 1.5em;
+    min-height: 44px;
     color: white;
     font-weight: 600;
     background-color: #004a7f;
@@ -35,10 +47,11 @@
     border: none;
     border-radius: .5em;
     font-size: 1.1rem;
+    font-family: inherit;
+    transition: background-color 200ms;
 }
 
 .viewAll:hover {
-    transition: all 200ms;
     background-color: #025c9c;
 }
 

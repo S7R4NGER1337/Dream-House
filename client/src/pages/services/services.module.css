@@ -5,7 +5,7 @@
 }
 
 .aboutUsTitle {
-  font-size: 3.5rem;
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 700;
   color: #1a1e27;
   margin-bottom: 10px;
@@ -112,7 +112,9 @@
   color: #ffffff;
   font-size: 1.05rem;
   font-weight: 600;
+  font-family: inherit;
   padding: 15px 30px;
+  min-height: 44px;
   border: none;
   border-radius: 8px;
   cursor: pointer;

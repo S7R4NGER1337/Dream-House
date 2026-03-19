@@ -19,6 +19,7 @@
 
 .column {
     flex-basis: 18%;
+    min-width: 130px;
 }
 
 .logoColumn {
@@ -87,6 +88,9 @@ a.contactLine:hover {
     font-size: 0.95rem;
     color: #a0a6b0;
     transition: color 0.2s ease;
+    /* Comfortable tap target */
+    display: inline-block;
+    padding: 2px 0;
 }
 
 .footerLink:hover {
@@ -109,12 +113,14 @@ a.contactLine:hover {
 
 .socialsContainer {
     display: flex;
-    gap: .4em;
+    gap: 0.75em;
 }
 
 .social {
     cursor: pointer;
     width: 2em;
+    /* Larger tap target on mobile */
+    padding: 0.25rem;
 }
 
 @media (max-width: 992px) {
@@ -131,7 +137,7 @@ a.contactLine:hover {
 
     .column {
         flex-basis: calc(33.33% - 20px);
-        min-width: 150px;
+        min-width: 130px;
     }
 }
 
@@ -142,7 +148,7 @@ a.contactLine:hover {
 
     .mainContent {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
     }
 
     .column,
@@ -157,6 +163,11 @@ a.contactLine:hover {
     }
 
     .linkList li {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+    }
+
+    .footerLink {
+        font-size: 1rem;
+        padding: 4px 0;
     }
 }

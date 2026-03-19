@@ -26,3 +26,13 @@
     width: 24px;
     height: 24px;
 }
+
+@media (max-width: 480px) {
+    .detailsGrid {
+        gap: 1rem;
+    }
+
+    .detailItem {
+        font-size: 0.95rem;
+    }
+}

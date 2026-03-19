@@ -109,6 +109,7 @@
 .submitBtn {
   align-self: flex-start;
   padding: 0.75rem 2.25rem;
+  min-height: 44px;
   background: #004a7f;
   color: #fff;
   border: none;

@@ -2,7 +2,6 @@
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
-    font-family: sans-serif;
 }
 
 /* ── Header ─────────────────────────────────────────── */
@@ -166,6 +165,7 @@
     object-fit: contain;
     border-radius: 6px;
     display: block;
+    -webkit-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
 }
@@ -205,6 +205,19 @@
     padding-bottom: 4px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.lightboxThumbs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.lightboxThumbs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lightboxThumbs::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
 }
 
 .lightboxThumb {

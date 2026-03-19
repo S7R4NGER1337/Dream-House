@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 
@@ -9,6 +9,12 @@ const Services = lazy(() => import("./pages/services/Services"));
 const Property = lazy(() => import("./pages/property/Property"));
 const Properties = lazy(() => import("./pages/properties/Properties"));
 const Contact = lazy(() => import("./pages/contact/Contact"));
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 
 function NotFound() {
   return (
@@ -22,6 +28,7 @@ function NotFound() {
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Nav />
       <div style={{ marginTop: "5rem" }}>
         <Suspense fallback={<div style={{ padding: "4rem", textAlign: "center" }}>Loading...</div>}>
