@@ -1,0 +1,157 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.subtitle {
+  color: #718096;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.filterInput {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fff;
+  color: #1a202c;
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.filterInput:focus {
+  border-color: #004a7f;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 200ms, box-shadow 200ms;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #004a7f;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+.cardBody {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #004a7f;
+  margin: 0 0 2px;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 2px;
+}
+
+.location {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0 0 10px;
+}
+
+.details {
+  font-size: 0.85rem;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  color: #cbd5e0;
+}
+
+/* Status messages */
+.statusMsg {
+  text-align: center;
+  color: #718096;
+  padding: 3rem 0;
+  font-size: 1rem;
+}
+
+.errorMsg {
+  text-align: center;
+  color: #e53e3e;
+  padding: 3rem 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+}

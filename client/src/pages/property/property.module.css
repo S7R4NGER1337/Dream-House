@@ -5,16 +5,18 @@
     font-family: sans-serif;
 }
 
+/* ── Header ─────────────────────────────────────────── */
 .nameAndPriceContainer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
+    gap: 1rem;
 }
 
 .houseName {
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     color: #1a202c;
     margin: 0;
 }
@@ -22,12 +24,14 @@
 .houseStreet {
     color: #718096;
     margin-top: 4px;
+    font-size: 0.95rem;
 }
 
 .housePrice {
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     color: #2b6cb0;
     margin: 0;
+    white-space: nowrap;
 }
 
 .houseMortgage {
@@ -36,7 +40,7 @@
     text-align: right;
 }
 
-/* photos gallery */
+/* ── Desktop photo grid ──────────────────────────────── */
 .photosGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -50,6 +54,8 @@
     width: 100%;
     height: 100%;
     position: relative;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .photoWrapper img {
@@ -57,6 +63,11 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 300ms;
+}
+
+.photoWrapper:hover img {
+    transform: scale(1.03);
 }
 
 .mainPhoto {
@@ -64,62 +75,248 @@
     grid-row: span 2;
 }
 
-.lastPhoto {
-    position: relative;
-}
-
 .lastPhoto img {
-    filter: brightness(0.8);
+    filter: brightness(0.6);
 }
 
 .showAllBtn {
     position: absolute;
     bottom: 50%;
-    left: 25%;
+    left: 50%;
+    transform: translate(-50%, 50%);
     padding: 8px 16px;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-weight: 600;
+    font-family: inherit;
+    font-size: 0.9rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
 }
 
 .showAllBtn:hover {
     background-color: #f8f9fa;
 }
 
-.homeDataContainer{
+/* ── Mobile hero (hidden on desktop) ────────────────── */
+.mobileHero {
+    display: none;
+}
+
+/* ── Bottom section ──────────────────────────────────── */
+.homeDataContainer {
     display: flex;
     width: 100%;
     background-color: #f4f6f8;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* ── Lightbox ────────────────────────────────────────── */
+.lightboxOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-@media (max-width: 768px) {
-    .photosGrid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
+.lightboxClose {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 150ms;
+    z-index: 1;
+}
 
-    .mainPhoto {
-        grid-column: span 1;
-        grid-row: span 1;
+.lightboxClose:hover { opacity: 1; }
+
+.lightboxContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+}
+
+.lightboxImgWrapper {
+    display: flex;
+    justify-content: center;
+    will-change: transform;
+    touch-action: pan-y;
+}
+
+.lightboxImg {
+    max-width: 88vw;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 6px;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.lightboxCounter {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+}
+
+.lightboxArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: white;
+    font-size: 3rem;
+    line-height: 1;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 150ms;
+    user-select: none;
+}
+
+.lightboxArrow:hover { background: rgba(255, 255, 255, 0.25); }
+.lightboxArrowLeft { left: 1rem; }
+.lightboxArrowRight { right: 1rem; }
+
+.lightboxThumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 1.25rem;
+    overflow-x: auto;
+    max-width: 90vw;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.lightboxThumb {
+    width: 70px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.45;
+    transition: opacity 150ms;
+    flex-shrink: 0;
+}
+
+.lightboxThumb:hover { opacity: 0.8; }
+
+.lightboxThumbActive {
+    opacity: 1;
+    outline: 2px solid white;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 1050px) {
+    .homeDataContainer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .propertyContainer {
+        padding: 0;
     }
 
     .nameAndPriceContainer {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 0.5rem;
+        padding: 0 1rem;
+        margin-top: 1.25rem;
+        margin-bottom: 1rem;
     }
-}
 
-@media screen and (max-width: 1050px) {
-    .homeDataContainer {
-        flex-direction: column;
+    .housePriceContainer {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+    }
+
+    .houseMortgage {
+        text-align: left;
+    }
+
+    /* Hide desktop grid on mobile */
+    .photosGrid {
+        display: none;
+    }
+
+    /* Show mobile hero */
+    .mobileHero {
+        display: block;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .mobileHeroImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .mobileShowAllBtn {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.92);
+        border: none;
+        border-radius: 6px;
+        padding: 6px 14px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Lightbox on mobile */
+    .lightboxArrow {
+        font-size: 2rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .lightboxArrowLeft { left: 0.25rem; }
+    .lightboxArrowRight { right: 0.25rem; }
+
+    .lightboxImg {
+        max-width: 96vw;
+        max-height: 58vh;
+    }
+
+    .lightboxImgWrapper {
+        touch-action: pan-y;
+    }
+
+    .lightboxThumbs {
+        max-width: 96vw;
+    }
+
+    .lightboxThumb {
+        width: 56px;
+        height: 40px;
     }
 }

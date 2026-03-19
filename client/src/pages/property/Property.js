@@ -1,52 +1,201 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ContactAgent from './ContactAgent';
 import HomeDetails from './HomeDetails';
 import styles from './property.module.css';
 
+const SWIPE_THRESHOLD = 50
+
 export default function Property() {
+    const { id } = useParams()
+    const [property, setProperty] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+    const [lightboxIndex, setLightboxIndex] = useState(null)
+
+    const touchStartX = useRef(null)
+    const dragRef = useRef(null)
+
     useEffect(() => {
         window.scrollTo(0, 0)
-    },[])
-    
+        fetch(`/property/${id}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Property not found')
+                return res.json()
+            })
+            .then(data => setProperty(data))
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false))
+    }, [id])
+
+    useEffect(() => {
+        if (lightboxIndex === null) return
+        const onKey = (e) => {
+            if (e.key === 'Escape') setLightboxIndex(null)
+            if (e.key === 'ArrowRight') navigate(1)
+            if (e.key === 'ArrowLeft') navigate(-1)
+        }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [lightboxIndex, property])
+
+    const navigate = (dir) => {
+        setLightboxIndex(i => (i + dir + property.images.length) % property.images.length)
+    }
+
+    const slideOut = (dir, callback) => {
+        const el = dragRef.current
+        if (!el) { callback(); return }
+        el.style.transition = 'transform 220ms ease'
+        el.style.transform = `translateX(${dir * -110}%)`
+        setTimeout(() => {
+            el.style.transition = 'none'
+            el.style.transform = 'translateX(0)'
+            callback()
+            // re-enable transition after reset
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    if (el) el.style.transition = ''
+                })
+            })
+        }, 220)
+    }
+
+    const onTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX
+        if (dragRef.current) {
+            dragRef.current.style.transition = 'none'
+        }
+    }
+
+    const onTouchMove = (e) => {
+        if (touchStartX.current === null) return
+        const delta = e.touches[0].clientX - touchStartX.current
+        if (dragRef.current) {
+            dragRef.current.style.transform = `translateX(${delta}px)`
+        }
+    }
+
+    const onTouchEnd = (e) => {
+        if (touchStartX.current === null) return
+        const delta = e.changedTouches[0].clientX - touchStartX.current
+        touchStartX.current = null
+
+        if (Math.abs(delta) > SWIPE_THRESHOLD) {
+            const dir = delta < 0 ? 1 : -1
+            slideOut(dir, () => navigate(dir))
+        } else {
+            // snap back
+            if (dragRef.current) {
+                dragRef.current.style.transition = 'transform 200ms ease'
+                dragRef.current.style.transform = 'translateX(0)'
+            }
+        }
+    }
+
+    if (loading) return <p style={{ textAlign: 'center', padding: '4rem' }}>Loading...</p>
+    if (error) return <p style={{ textAlign: 'center', padding: '4rem', color: '#e53e3e' }}>{error}</p>
+    if (!property) return null
+
+    const mortgage = Math.round((property.price * 0.006)).toLocaleString('en-US')
+
     return (
         <>
             <div className={styles.propertyContainer}>
                 <div className={styles.nameAndPriceContainer}>
                     <section className={styles.nameAndStreet}>
-                        <h1 className={styles.houseName}>Modern Suburban Oasis</h1>
-                        <p className={styles.houseStreet}>123 Maple Street, Sunnyvale, CA 94087</p>
+                        <h1 className={styles.houseName}>{property.name}</h1>
+                        <p className={styles.houseStreet}>{property.location}</p>
                     </section>
                     <section className={styles.housePriceContainer}>
-                        <h1 className={styles.housePrice}>$1,200,000</h1>
-                        <p className={styles.houseMortgage}>Est. Mortgage: $6,500/mo</p>
+                        <h1 className={styles.housePrice}>${property.price.toLocaleString('en-US')}</h1>
+                        <p className={styles.houseMortgage}>Est. Mortgage: ${mortgage}/mo</p>
                     </section>
                 </div>
 
+                {/* Desktop grid */}
                 <div className={styles.photosGrid}>
-                    <div className={`${styles.photoWrapper} ${styles.mainPhoto}`}>
-                        <img src='/unnamed.png' alt='Main view' />
-                    </div>
-                    <div className={styles.photoWrapper}>
-                        <img src='/unnamed (2).png' alt='Interior' />
-                    </div>
-                    <div className={styles.photoWrapper}>
-                        <img src='/unnamed (3).png' alt='Pool' />
-                    </div>
-                    <div className={styles.photoWrapper}>
-                        <img src='/unnamed.png' alt='Backyard' />
-                    </div>
-                    <div className={`${styles.photoWrapper} ${styles.lastPhoto}`}>
-                        <img src='/unnamed (1).png' alt='Night view' />
-                        <button className={styles.showAllBtn}>
-                            <span className={styles.icon}>⠿</span> Show all photos
-                        </button>
-                    </div>
+                    {property.images.slice(0, 4).map((img, i) => (
+                        <div
+                            key={i}
+                            className={`${styles.photoWrapper} ${i === 0 ? styles.mainPhoto : ''}`}
+                            onClick={() => setLightboxIndex(i)}
+                        >
+                            <img src={img} alt={`${property.name} photo ${i + 1}`} loading={i > 0 ? 'lazy' : 'eager'} />
+                        </div>
+                    ))}
+                    {property.images.length > 4 && (
+                        <div className={`${styles.photoWrapper} ${styles.lastPhoto}`} onClick={() => setLightboxIndex(4)}>
+                            <img src={property.images[4]} alt={`${property.name} photo 5`} loading="lazy" />
+                            <button className={styles.showAllBtn} onClick={(e) => { e.stopPropagation(); setLightboxIndex(0) }}>
+                                <span>⠿</span> Show all photos
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {/* Mobile hero */}
+                <div className={styles.mobileHero} onClick={() => setLightboxIndex(0)}>
+                    <img src={property.images[0]} alt={property.name} className={styles.mobileHeroImg} />
+                    <button className={styles.mobileShowAllBtn} onClick={(e) => { e.stopPropagation(); setLightboxIndex(0) }}>
+                        ⠿ {property.images.length} photos
+                    </button>
                 </div>
             </div>
+
             <div className={styles.homeDataContainer}>
-                <HomeDetails />
+                <HomeDetails property={property} />
                 <ContactAgent />
             </div>
+
+            {lightboxIndex !== null && (
+                <div
+                    className={styles.lightboxOverlay}
+                    onClick={() => setLightboxIndex(null)}
+                >
+                    <button className={styles.lightboxClose} onClick={() => setLightboxIndex(null)}>✕</button>
+
+                    <button
+                        className={`${styles.lightboxArrow} ${styles.lightboxArrowLeft}`}
+                        onClick={(e) => { e.stopPropagation(); navigate(-1) }}
+                    >‹</button>
+
+                    <div
+                        className={styles.lightboxContent}
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={onTouchStart}
+                        onTouchMove={onTouchMove}
+                        onTouchEnd={onTouchEnd}
+                    >
+                        <div ref={dragRef} className={styles.lightboxImgWrapper}>
+                            <img
+                                src={property.images[lightboxIndex]}
+                                alt={`${property.name} photo ${lightboxIndex + 1}`}
+                                className={styles.lightboxImg}
+                                draggable={false}
+                            />
+                        </div>
+                        <p className={styles.lightboxCounter}>{lightboxIndex + 1} / {property.images.length}</p>
+                    </div>
+
+                    <button
+                        className={`${styles.lightboxArrow} ${styles.lightboxArrowRight}`}
+                        onClick={(e) => { e.stopPropagation(); navigate(1) }}
+                    >›</button>
+
+                    <div className={styles.lightboxThumbs} onClick={(e) => e.stopPropagation()}>
+                        {property.images.map((img, i) => (
+                            <img
+                                key={i}
+                                src={img}
+                                alt={`thumb ${i + 1}`}
+                                className={`${styles.lightboxThumb} ${i === lightboxIndex ? styles.lightboxThumbActive : ''}`}
+                                onClick={() => setLightboxIndex(i)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
         </>
     );
 }
