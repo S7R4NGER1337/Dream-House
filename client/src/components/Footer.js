@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
 import styles from "./footer.module.css";
 
+const LinkColumn = ({ title, links }) => (
+  <div className={styles.column}>
+    <h3 className={styles.columnTitle}>{title}</h3>
+    <ul className={styles.linkList}>
+      {links.map((link) => (
+        <li key={link.name}>
+          <Link to={link.link} className={styles.footerLink}>
+            {link.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 const Footer = () => {
   const companyLinks = [
     { name: "About Us", link: "/about-us" },
@@ -21,21 +36,6 @@ const Footer = () => {
     { name: "Privacy Policy", link: "/privacy" },
     { name: "Fair Housing", link: "/fair-housing" },
   ];
-
-  const LinkColumn = ({ title, links }) => (
-    <div className={styles.column}>
-      <h3 className={styles.columnTitle}>{title}</h3>
-      <ul className={styles.linkList}>
-        {links.map((link) => (
-          <li key={link.name}>
-            <Link to={link.link} className={styles.footerLink}>
-              {link.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 
   return (
     <footer className={styles.footer}>

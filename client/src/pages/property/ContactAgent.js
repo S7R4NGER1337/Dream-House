@@ -13,8 +13,8 @@ export default function ContactAgent() {
             </div>
             <div className={styles.formContainer}>
                 <input className={styles.input} type='text' placeholder='Your Name' />
-                <input className={styles.input} type='text' placeholder='Your Email' />
-                <input className={styles.input} type='text' placeholder='Your Phone (Optional)' />
+                <input className={styles.input} type='email' placeholder='Your Email' />
+                <input className={styles.input} type='tel' placeholder='Your Phone (Optional)' />
                 <textarea rows="5" className={styles.input} placeholder="I'm interested in this property..." />
                 <button className={styles.sendInquiry}>Send Inquiry</button>
             </div>

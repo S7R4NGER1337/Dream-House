@@ -14,7 +14,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 app.use('/property', propertyController)
 
 mongoose.connect(process.env.MONGO_URI)

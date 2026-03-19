@@ -19,7 +19,7 @@ export default function Amenities() {
             <h1 className={styles.amenitiesTtitle}>Amenities</h1>
             <div className={styles.amenitiesContainer}>
                 {testAmenities.map(amenity =>
-                    <Amenity title={amenity} />
+                    <Amenity key={amenity} title={amenity} />
                 )}
             </div>
         </section>
