@@ -1,7 +1,14 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProperties from "./pages/admin/AdminProperties";
+import AdminPropertyForm from "./pages/admin/AdminPropertyForm";
+import AdminAgents from "./pages/admin/AdminAgents";
+import AdminAgentForm from "./pages/admin/AdminAgentForm";
+import ProtectedRoute from "./pages/admin/ProtectedRoute";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const AboutUs = lazy(() => import("./pages/aboutUs/AboutUs"));
@@ -25,10 +32,9 @@ function NotFound() {
   );
 }
 
-function App() {
+function PublicLayout() {
   return (
     <>
-      <ScrollToTop />
       <Nav />
       <div style={{ marginTop: "5rem" }}>
         <Suspense fallback={<div style={{ padding: "4rem", textAlign: "center" }}>Loading...</div>}>
@@ -44,6 +50,31 @@ function App() {
         </Suspense>
       </div>
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith("/admin");
+
+  return (
+    <>
+      <ScrollToTop />
+      {isAdmin ? (
+        <Routes>
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/properties" element={<ProtectedRoute><AdminProperties /></ProtectedRoute>} />
+          <Route path="/admin/properties/new" element={<ProtectedRoute><AdminPropertyForm /></ProtectedRoute>} />
+          <Route path="/admin/properties/:id/edit" element={<ProtectedRoute><AdminPropertyForm /></ProtectedRoute>} />
+          <Route path="/admin/agents" element={<ProtectedRoute><AdminAgents /></ProtectedRoute>} />
+          <Route path="/admin/agents/new" element={<ProtectedRoute><AdminAgentForm /></ProtectedRoute>} />
+          <Route path="/admin/agents/:id/edit" element={<ProtectedRoute><AdminAgentForm /></ProtectedRoute>} />
+        </Routes>
+      ) : (
+        <PublicLayout />
+      )}
     </>
   );
 }

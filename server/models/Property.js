@@ -16,5 +16,11 @@ const PropertySchema = new mongoose.Schema({
   status: Boolean,
 });
 
+PropertySchema.index({ agent: 1 })
+PropertySchema.index({ price: 1 })
+PropertySchema.index({ location: 1 })
+PropertySchema.index({ beds: 1 })
+PropertySchema.index({ status: 1 })
+
 const Property = new mongoose.model("Property", PropertySchema);
 module.exports = Property;

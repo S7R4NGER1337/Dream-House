@@ -1,7 +1,7 @@
 import BigBanner from "../../components/BigBanner";
 import HandpickedForYou from "./HandpickedForYou";
 import HeroSection from "./HeroSection";
-import TestimonialSection from "./Testiominals";
+import TestimonialSection from "./Testimonials";
 import TheDream from "./TheDream";
 import styles from "./home.module.css";
 import { useEffect } from "react";
