@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/property/:path*",
-      "destination": "https://REPLACE_WITH_SERVER_VERCEL_URL/property/:path*"
+      "destination": "https://dream-house-server-coral.vercel.app/property/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://REPLACE_WITH_SERVER_VERCEL_URL/api/:path*"
+      "destination": "https://dream-house-server-coral.vercel.app/api/:path*"
     },
     {
       "source": "/(.*)",
