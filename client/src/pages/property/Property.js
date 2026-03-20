@@ -28,20 +28,21 @@ export default function Property() {
             .finally(() => setLoading(false))
     }, [id])
 
+    const changeSlide = (dir) => {
+        setLightboxIndex(i => (i + dir + property.images.length) % property.images.length)
+    }
+
     useEffect(() => {
         if (lightboxIndex === null) return
         const onKey = (e) => {
             if (e.key === 'Escape') setLightboxIndex(null)
-            if (e.key === 'ArrowRight') navigate(1)
-            if (e.key === 'ArrowLeft') navigate(-1)
+            if (e.key === 'ArrowRight') changeSlide(1)
+            if (e.key === 'ArrowLeft') changeSlide(-1)
         }
         window.addEventListener('keydown', onKey)
         return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lightboxIndex, property])
-
-    const navigate = (dir) => {
-        setLightboxIndex(i => (i + dir + property.images.length) % property.images.length)
-    }
 
     const slideOut = (dir, callback) => {
         const el = dragRef.current
@@ -83,7 +84,7 @@ export default function Property() {
 
         if (Math.abs(delta) > SWIPE_THRESHOLD) {
             const dir = delta < 0 ? 1 : -1
-            slideOut(dir, () => navigate(dir))
+            slideOut(dir, () => changeSlide(dir))
         } else {
             // snap back
             if (dragRef.current) {
@@ -121,12 +122,12 @@ export default function Property() {
                             className={`${styles.photoWrapper} ${i === 0 ? styles.mainPhoto : ''}`}
                             onClick={() => setLightboxIndex(i)}
                         >
-                            <img src={img} alt={`${property.name} photo ${i + 1}`} loading={i > 0 ? 'lazy' : 'eager'} />
+                            <img src={img} alt={`${property.name} ${i + 1}`} loading={i > 0 ? 'lazy' : 'eager'} />
                         </div>
                     ))}
                     {property.images.length > 4 && (
                         <div className={`${styles.photoWrapper} ${styles.lastPhoto}`} onClick={() => setLightboxIndex(4)}>
-                            <img src={property.images[4]} alt={`${property.name} photo 5`} loading="lazy" />
+                            <img src={property.images[4]} alt={`${property.name} 5`} loading="lazy" />
                             <button className={styles.showAllBtn} onClick={(e) => { e.stopPropagation(); setLightboxIndex(0) }}>
                                 <span>⠿</span> Show all photos
                             </button>
@@ -157,7 +158,7 @@ export default function Property() {
 
                     <button
                         className={`${styles.lightboxArrow} ${styles.lightboxArrowLeft}`}
-                        onClick={(e) => { e.stopPropagation(); navigate(-1) }}
+                        onClick={(e) => { e.stopPropagation(); changeSlide(-1) }}
                     >‹</button>
 
                     <div
@@ -170,7 +171,7 @@ export default function Property() {
                         <div ref={dragRef} className={styles.lightboxImgWrapper}>
                             <img
                                 src={property.images[lightboxIndex]}
-                                alt={`${property.name} photo ${lightboxIndex + 1}`}
+                                alt={`${property.name} ${lightboxIndex + 1}`}
                                 className={styles.lightboxImg}
                                 draggable={false}
                             />
@@ -180,7 +181,7 @@ export default function Property() {
 
                     <button
                         className={`${styles.lightboxArrow} ${styles.lightboxArrowRight}`}
-                        onClick={(e) => { e.stopPropagation(); navigate(1) }}
+                        onClick={(e) => { e.stopPropagation(); changeSlide(1) }}
                     >›</button>
 
                     <div className={styles.lightboxThumbs} onClick={(e) => e.stopPropagation()}>
