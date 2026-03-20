@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit')
 const path = require('path')
 require('dotenv').config()
 
-const REQUIRED_ENV = ['MONGO_URI', 'JWT_SECRET', 'ADMIN_USER', 'ADMIN_PASS']
+const REQUIRED_ENV = ['MONGODB_URI', 'JWT_SECRET', 'ADMIN_USER', 'ADMIN_PASS']
 for (const key of REQUIRED_ENV) {
   if (!process.env[key]) throw new Error(`Missing required env var: ${key}`)
 }
@@ -66,7 +66,7 @@ if (!process.env.VERCEL) {
 let dbConnected = false
 async function connectDB() {
   if (dbConnected) return
-  await mongoose.connect(process.env.MONGO_URI)
+  await mongoose.connect(process.env.MONGODB_URI)
   dbConnected = true
   console.log('DB connected')
 }

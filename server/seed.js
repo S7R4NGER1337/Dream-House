@@ -138,7 +138,7 @@ const buildProperties = (agents) => [
 
 async function seed() {
   try {
-    await mongoose.connect(process.env.MONGO_URI)
+    await mongoose.connect(process.env.MONGODB_URI)
     console.log('Connected to database')
 
     await Property.deleteMany({})

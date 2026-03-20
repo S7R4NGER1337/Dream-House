@@ -75,7 +75,7 @@ npm install
 
 Create a `.env` file:
 ```env
-MONGO_URI=mongodb://localhost:27017/dream-house
+MONGODB_URI=mongodb://localhost:27017/dream-house
 FRONTEND=http://localhost:3000
 ADMIN_USER=admin
 ADMIN_PASS=your_password
@@ -135,4 +135,4 @@ Both client and server are deployed as separate Vercel projects.
 }
 ```
 
-Set `MONGO_URI`, `ADMIN_USER`, `ADMIN_PASS`, `JWT_SECRET`, and `FRONTEND` as environment variables in the Vercel server project dashboard.
+Set `MONGODB_URI`, `ADMIN_USER`, `ADMIN_PASS`, `JWT_SECRET`, and `FRONTEND` as environment variables in the Vercel server project dashboard.
