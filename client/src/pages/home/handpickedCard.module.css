@@ -8,8 +8,15 @@
     overflow: hidden;
     box-shadow: 0 0px 22px -1px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
-    transition: all 200ms;
+    transition: transform 200ms, box-shadow 200ms, opacity 0.55s ease, translate 0.55s ease;
     cursor: pointer;
+    opacity: 0;
+    translate: 0 22px;
+}
+
+.cardContainer.visible {
+    opacity: 1;
+    translate: 0 0;
 }
 
 .imageWrapper {
@@ -53,7 +60,7 @@
     margin-top: 5px;
 }
 
-.cardContainer:hover {
+.cardContainer.visible:hover {
     transform: translateY(-8px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }

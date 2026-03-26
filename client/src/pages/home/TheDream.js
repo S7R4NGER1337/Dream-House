@@ -1,7 +1,9 @@
 import styles from "./theDream.module.css";
 import TheDreamExample from "./TheDreamExample";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
 export default function TheDream() {
+  const { ref, isVisible } = useScrollAnimation();
   const dreamExamples = [
     {
       name: "Local Market Experts",
@@ -21,15 +23,15 @@ export default function TheDream() {
   ];
 
   return (
-    <div className={`${styles.theDreamContainer} ${styles.pageSection}`}>
+    <div ref={ref} className={`${styles.theDreamContainer} ${styles.pageSection} ${isVisible ? styles.visible : ''}`}>
       <h1 className={styles.theDreamTitle}>The Dream Homes Difference</h1>
       <p className={styles.theDreamSubtitle}>
         We blend cutting-edge technology with personalized, expert service to
         make your real estate experience seamless and successful.
       </p>
       <div className={styles.theDreamExamplesContainer}>
-        {dreamExamples.map((example) => (
-          <TheDreamExample dreamData={example} key={example.name} />
+        {dreamExamples.map((example, index) => (
+          <TheDreamExample dreamData={example} key={example.name} delay={index * 150} />
         ))}
       </div>
     </div>

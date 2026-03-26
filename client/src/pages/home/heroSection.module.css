@@ -16,6 +16,7 @@
     font-weight: 800;
     color: white;
     line-height: 1.2;
+    animation: fadeInDown 0.75s ease both;
 }
 
 .heroSectionSubtitle {
@@ -24,6 +25,7 @@
     max-width: 50rem;
     line-height: 1.6;
     padding: 0 0.5rem;
+    animation: fadeInUp 0.75s ease 0.2s both;
 }
 
 .heroSectionFilters {
@@ -35,6 +37,7 @@
     border-radius: 1em;
     width: 100%;
     max-width: 900px;
+    animation: fadeInUp 0.75s ease 0.4s both;
 }
 
 .heroSectionFilterInput {

@@ -1,4 +1,5 @@
 import styles from "./testimonialSection.module.css";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
 const testimonials = [
   {
@@ -37,11 +38,14 @@ const TestimonialCard = ({ quote, name, title }) => (
 );
 
 const TestimonialSection = () => {
+  const { ref: containerRef, isVisible: containerVisible } = useScrollAnimation();
+  const { ref: gridRef, isVisible: gridVisible } = useScrollAnimation();
+
   return (
     <div className={styles.sectionBackground}>
-      <div className={styles.container}>
+      <div ref={containerRef} className={`${styles.container} ${containerVisible ? styles.visible : ''}`}>
         <h2 className={styles.heading}>Loved by Homeowners Everywhere</h2>
-        <div className={styles.cardsGrid}>
+        <div ref={gridRef} className={`${styles.cardsGrid} ${gridVisible ? styles.visible : ''}`}>
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial.id} {...testimonial} />
           ))}

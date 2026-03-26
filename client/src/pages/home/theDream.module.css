@@ -17,6 +17,14 @@
     margin-bottom: 0.5em;
     color: #172a3a;
     font-weight: 600;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.theDreamContainer.visible .theDreamTitle {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .theDreamSubtitle {
@@ -25,6 +33,14 @@
     max-width: 45rem;
     color: rgb(108 117 125);
     margin-bottom: 3em;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+}
+
+.theDreamContainer.visible .theDreamSubtitle {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .theDreamExamplesContainer{
