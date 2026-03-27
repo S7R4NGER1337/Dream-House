@@ -1,15 +1,34 @@
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import styles from './contactAgent.module.css'
 
 export default function ContactAgent({ agent }) {
+    const { id: propertyId } = useParams()
     const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
     const [sent, setSent] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setSent(true)
+        setError('')
+        setLoading(true)
+        try {
+            const res = await fetch('/api/inquiry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...form, propertyId, agentId: agent?._id }),
+            })
+            const data = await res.json()
+            if (!res.ok) { setError(data.error || 'Failed to send inquiry'); return }
+            setSent(true)
+        } catch {
+            setError('Network error. Please try again.')
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -41,6 +60,7 @@ export default function ContactAgent({ agent }) {
                 </div>
             ) : (
                 <form className={styles.formContainer} onSubmit={handleSubmit}>
+                    {error && <p style={{ color: '#e53e3e', fontSize: '0.875rem', marginBottom: '0.5rem' }}>{error}</p>}
                     <input
                         className={styles.input}
                         type="text"
@@ -76,7 +96,9 @@ export default function ContactAgent({ agent }) {
                         onChange={handleChange}
                         required
                     />
-                    <button className={styles.sendInquiry} type="submit">Send Inquiry</button>
+                    <button className={styles.sendInquiry} type="submit" disabled={loading}>
+                        {loading ? 'Sending…' : 'Send Inquiry'}
+                    </button>
                 </form>
             )}
         </div>

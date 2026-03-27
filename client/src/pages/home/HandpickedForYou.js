@@ -10,9 +10,9 @@ export default function HandpickedForYou() {
   const { ref: infoRef, isVisible: infoVisible } = useScrollAnimation();
 
   useEffect(() => {
-    fetch('/property/getAll')
+    fetch('/property/featured')
       .then(res => res.ok ? res.json() : [])
-      .then(data => setProperties(data.slice(0, 4)))
+      .then(data => setProperties(data))
       .catch(() => setProperties([]))
   }, [])
 

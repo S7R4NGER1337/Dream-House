@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdminLayout from './AdminLayout'
 import styles from './admin.module.css'
-import { authHeader, jsonHeaders } from './adminAuth'
+import { authOpts, jsonOpts } from './adminAuth'
 
 const EMPTY = { name: '', price: '', location: '', description: '', beds: '', baths: '', sqft: '', build: '', coverImage: '', images: '', amenities: '', agent: '', status: 'true' }
 
@@ -19,15 +19,15 @@ export default function AdminPropertyForm() {
     const ac = new AbortController()
     const { signal } = ac
 
-    fetch('/api/admin/agents', { headers: authHeader(), signal })
+    fetch('/api/admin/agents', { ...authOpts(), signal })
       .then(r => r.json())
       .then(setAgents)
-      .catch(() => {})
+      .catch(err => console.error(err))
 
     if (isEdit) {
-      fetch(`/api/admin/properties/${id}`, { headers: authHeader(), signal })
+      fetch(`/api/admin/properties/${id}`, { ...authOpts(), signal })
         .then(r => {
-          if (r.status === 401) { localStorage.removeItem('adminToken'); navigate('/admin'); return null }
+          if (r.status === 401) { navigate('/admin'); return null }
           return r.json()
         })
         .then(p => {
@@ -48,7 +48,7 @@ export default function AdminPropertyForm() {
             status: String(p.status ?? true),
           })
         })
-        .catch(() => {})
+        .catch(err => console.error(err))
     }
 
     return () => ac.abort()
@@ -77,7 +77,7 @@ export default function AdminPropertyForm() {
     }
     try {
       const url = isEdit ? `/api/admin/properties/${id}` : '/api/admin/properties'
-      const res = await fetch(url, { method: isEdit ? 'PUT' : 'POST', headers: jsonHeaders(), body: JSON.stringify(body) })
+      const res = await fetch(url, { method: isEdit ? 'PUT' : 'POST', ...jsonOpts(), body: JSON.stringify(body) })
       const data = await res.json()
       if (!res.ok) { setError(data.error || 'Failed'); return }
       navigate('/admin/properties')

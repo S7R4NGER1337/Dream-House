@@ -1,8 +1,23 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto')
 const auth = require('./middleware/auth')
 const Property = require('./models/Property')
 const Agent = require('./models/Agent')
+
+const COOKIE_OPTS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'strict',
+  maxAge: 4 * 60 * 60 * 1000, // 4 hours
+}
+
+function safeEqual(a, b) {
+  const bufA = Buffer.from(String(a))
+  const bufB = Buffer.from(String(b))
+  if (bufA.length !== bufB.length) return false
+  return crypto.timingSafeEqual(bufA, bufB)
+}
 
 // ── Validation helpers ─────────────────────────────────────────────────────────
 
@@ -44,11 +59,21 @@ function validateAgent(body) {
 router.post('/login', (req, res) => {
   const { username, password } = req.body
   if (!username || !password) return res.status(400).json({ error: 'Username and password required' })
-  if (username !== process.env.ADMIN_USER || password !== process.env.ADMIN_PASS) {
+  if (!safeEqual(username, process.env.ADMIN_USER) || !safeEqual(password, process.env.ADMIN_PASS)) {
     return res.status(401).json({ error: 'Invalid credentials' })
   }
-  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '8h' })
-  res.json({ token })
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '4h' })
+  res.cookie('adminToken', token, COOKIE_OPTS)
+  res.json({ ok: true })
+})
+
+router.get('/verify', auth, (_req, res) => {
+  res.json({ ok: true })
+})
+
+router.post('/logout', (_req, res) => {
+  res.clearCookie('adminToken', COOKIE_OPTS)
+  res.json({ ok: true })
 })
 
 // ── Stats ──────────────────────────────────────────────────────────────────────

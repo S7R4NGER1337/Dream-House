@@ -1,6 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './properties.module.css'
+
+function SkeletonCard() {
+  return (
+    <div className={styles.skeletonCard}>
+      <div className={styles.skeletonImage} />
+      <div className={styles.skeletonBody}>
+        <div className={styles.skeletonLine} style={{ width: '50%' }} />
+        <div className={styles.skeletonLine} style={{ width: '70%' }} />
+        <div className={styles.skeletonLine} style={{ width: '40%' }} />
+        <div className={styles.skeletonLine} style={{ width: '60%', marginTop: '0.5rem' }} />
+      </div>
+    </div>
+  )
+}
 
 export default function Properties() {
   const [properties, setProperties] = useState([])
@@ -13,6 +27,10 @@ export default function Properties() {
   const maxPrice = searchParams.get('maxPrice') ?? ''
   const minBeds = searchParams.get('beds') ?? ''
 
+  // Local input state so debounce doesn't lag the UI
+  const [searchInput, setSearchInput] = useState(search)
+  const debounceRef = useRef(null)
+
   const setParam = (key, value) => {
     setSearchParams(prev => {
       const next = new URLSearchParams(prev)
@@ -22,8 +40,14 @@ export default function Properties() {
     }, { replace: true })
   }
 
+  const handleSearchChange = (e) => {
+    const val = e.target.value
+    setSearchInput(val)
+    clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => setParam('search', val), 300)
+  }
+
   useEffect(() => {
-    window.scrollTo(0, 0)
     fetch('/property/getAll')
       .then(res => {
         if (!res.ok) throw new Error('Failed to load properties')
@@ -55,8 +79,8 @@ export default function Properties() {
           className={styles.filterInput}
           type="text"
           placeholder="Search by city or name..."
-          value={search}
-          onChange={e => setParam('search', e.target.value)}
+          value={searchInput}
+          onChange={handleSearchChange}
         />
         <select
           className={styles.filterInput}
@@ -84,44 +108,50 @@ export default function Properties() {
         </select>
       </div>
 
-      {loading && <p className={styles.statusMsg}>Loading properties...</p>}
       {error && <p className={styles.errorMsg}>{error}</p>}
 
-      {!loading && !error && filtered.length === 0 && (
-        <p className={styles.statusMsg}>No properties match your filters.</p>
-      )}
-
-      <div className={styles.grid}>
-        {filtered.map(property => (
-          <div
-            key={property._id}
-            className={styles.card}
-            onClick={() => navigate(`/property/${property._id}`)}
-          >
-            <div className={styles.imageWrapper}>
-              <img
-                src={property.coverImage}
-                alt={property.name}
-                className={styles.cardImage}
-                loading="lazy"
-              />
-              <span className={styles.badge}>For Sale</span>
-            </div>
-            <div className={styles.cardBody}>
-              <h2 className={styles.price}>${property.price.toLocaleString('en-US')}</h2>
-              <p className={styles.name}>{property.name}</p>
-              <p className={styles.location}>{property.location}</p>
-              <div className={styles.details}>
-                <span>{property.beds} beds</span>
-                <span className={styles.dot}>·</span>
-                <span>{property.baths} baths</span>
-                <span className={styles.dot}>·</span>
-                <span>{property.sqft?.toLocaleString('en-US')} sqft</span>
+      {loading ? (
+        <div className={styles.grid}>
+          {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+        </div>
+      ) : (
+        <>
+          {!error && filtered.length === 0 && (
+            <p className={styles.statusMsg}>No properties match your filters.</p>
+          )}
+          <div className={styles.grid}>
+            {filtered.map(property => (
+              <div
+                key={property._id}
+                className={styles.card}
+                onClick={() => navigate(`/property/${property._id}`)}
+              >
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={property.coverImage}
+                    alt={property.name}
+                    className={styles.cardImage}
+                    loading="lazy"
+                  />
+                  <span className={styles.badge}>For Sale</span>
+                </div>
+                <div className={styles.cardBody}>
+                  <h2 className={styles.price}>${property.price.toLocaleString('en-US')}</h2>
+                  <p className={styles.name}>{property.name}</p>
+                  <p className={styles.location}>{property.location}</p>
+                  <div className={styles.details}>
+                    <span>{property.beds} beds</span>
+                    <span className={styles.dot}>·</span>
+                    <span>{property.baths} baths</span>
+                    <span className={styles.dot}>·</span>
+                    <span>{property.sqft?.toLocaleString('en-US')} sqft</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   )
 }

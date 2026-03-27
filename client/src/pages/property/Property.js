@@ -94,8 +94,13 @@ export default function Property() {
         }
     }
 
-    if (loading) return <p style={{ textAlign: 'center', padding: '4rem' }}>Loading...</p>
-    if (error) return <p style={{ textAlign: 'center', padding: '4rem', color: '#e53e3e' }}>{error}</p>
+    if (loading) return <p style={{ textAlign: 'center', padding: '4rem', color: '#94a3b8' }}>Loading…</p>
+    if (error) return (
+        <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
+            <p style={{ color: '#e53e3e', marginBottom: '1rem' }}>{error}</p>
+            <a href="/properties" style={{ color: '#004a7f', fontWeight: 600 }}>← Back to Properties</a>
+        </div>
+    )
     if (!property) return null
 
     const mortgage = Math.round((property.price * 0.006)).toLocaleString('en-US')
@@ -151,6 +156,9 @@ export default function Property() {
 
             {lightboxIndex !== null && (
                 <div
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`Photo ${lightboxIndex + 1} of ${property.images.length}`}
                     className={styles.lightboxOverlay}
                     onClick={() => setLightboxIndex(null)}
                 >

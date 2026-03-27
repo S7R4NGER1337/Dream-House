@@ -2,27 +2,27 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminLayout from './AdminLayout'
 import styles from './admin.module.css'
-import { authHeader } from './adminAuth'
+import { authOpts } from './adminAuth'
 
 export default function AdminProperties() {
   const [properties, setProperties] = useState([])
   const navigate = useNavigate()
 
   const load = useCallback(() => {
-    fetch('/api/admin/properties', { headers: authHeader() })
+    fetch('/api/admin/properties', authOpts())
       .then(r => {
-        if (r.status === 401) { localStorage.removeItem('adminToken'); navigate('/admin'); return null }
+        if (r.status === 401) { navigate('/admin'); return null }
         return r.json()
       })
       .then(d => { if (d) setProperties(d) })
-      .catch(() => {})
+      .catch(err => console.error(err))
   }, [navigate])
 
   useEffect(() => { load() }, [load])
 
   const del = async (id) => {
     if (!window.confirm('Delete this property?')) return
-    await fetch(`/api/admin/properties/${id}`, { method: 'DELETE', headers: authHeader() })
+    await fetch(`/api/admin/properties/${id}`, { method: 'DELETE', ...authOpts() })
     load()
   }
 

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const AgentSchema = new mongoose.Schema({
-  name: String,
-  position: String,
-  phone: String,
-  email: String,
+  name: { type: String, required: true, trim: true, maxlength: 100 },
+  position: { type: String, required: true, trim: true, maxlength: 100 },
+  phone: { type: String, trim: true, maxlength: 50 },
+  email: { type: String, trim: true, maxlength: 200, lowercase: true },
   photo: String,
 })
 

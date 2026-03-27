@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdminLayout from './AdminLayout'
 import styles from './admin.module.css'
-import { authHeader, jsonHeaders } from './adminAuth'
+import { authOpts, jsonOpts } from './adminAuth'
 
 const EMPTY = { name: '', position: '', phone: '', email: '', photo: '' }
 
@@ -17,16 +17,16 @@ export default function AdminAgentForm() {
   useEffect(() => {
     if (!isEdit) return
     const ac = new AbortController()
-    fetch(`/api/admin/agents/${id}`, { headers: authHeader(), signal: ac.signal })
+    fetch(`/api/admin/agents/${id}`, { ...authOpts(), signal: ac.signal })
       .then(r => {
-        if (r.status === 401) { localStorage.removeItem('adminToken'); navigate('/admin'); return null }
+        if (r.status === 401) { navigate('/admin'); return null }
         return r.json()
       })
       .then(a => {
         if (!a) return
         setForm({ name: a.name || '', position: a.position || '', phone: a.phone || '', email: a.email || '', photo: a.photo || '' })
       })
-      .catch(() => {})
+      .catch(err => console.error(err))
     return () => ac.abort()
   }, [id, isEdit, navigate])
 
@@ -45,7 +45,7 @@ export default function AdminAgentForm() {
     }
     try {
       const url = isEdit ? `/api/admin/agents/${id}` : '/api/admin/agents'
-      const res = await fetch(url, { method: isEdit ? 'PUT' : 'POST', headers: jsonHeaders(), body: JSON.stringify(body) })
+      const res = await fetch(url, { method: isEdit ? 'PUT' : 'POST', ...jsonOpts(), body: JSON.stringify(body) })
       const data = await res.json()
       if (!res.ok) { setError(data.error || 'Failed'); return }
       navigate('/admin/agents')

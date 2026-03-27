@@ -2,27 +2,27 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminLayout from './AdminLayout'
 import styles from './admin.module.css'
-import { authHeader } from './adminAuth'
+import { authOpts } from './adminAuth'
 
 export default function AdminAgents() {
   const [agents, setAgents] = useState([])
   const navigate = useNavigate()
 
   const load = useCallback(() => {
-    fetch('/api/admin/agents', { headers: authHeader() })
+    fetch('/api/admin/agents', authOpts())
       .then(r => {
-        if (r.status === 401) { localStorage.removeItem('adminToken'); navigate('/admin'); return null }
+        if (r.status === 401) { navigate('/admin'); return null }
         return r.json()
       })
       .then(d => { if (d) setAgents(d) })
-      .catch(() => {})
+      .catch(err => console.error(err))
   }, [navigate])
 
   useEffect(() => { load() }, [load])
 
   const del = async (id) => {
     if (!window.confirm('Delete this agent?')) return
-    await fetch(`/api/admin/agents/${id}`, { method: 'DELETE', headers: authHeader() })
+    await fetch(`/api/admin/agents/${id}`, { method: 'DELETE', ...authOpts() })
     load()
   }
 

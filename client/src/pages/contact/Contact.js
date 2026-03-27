@@ -29,12 +29,29 @@ const INFO_ITEMS = [
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    setError('')
+    setLoading(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) { setError(data.error || 'Failed to send message'); return }
+      setSent(true)
+    } catch {
+      setError('Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -54,6 +71,7 @@ export default function Contact() {
         <div className={styles.formCard}>
           <h2 className={styles.cardTitle}>Send Us a Message</h2>
 
+          {error && <p style={{ color: '#e53e3e', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</p>}
           {sent ? (
             <div className={styles.successMsg}>
               <span className={styles.successIcon}>✓</span>
@@ -129,8 +147,8 @@ export default function Contact() {
                   required
                 />
               </div>
-              <button className={styles.submitBtn} type="submit">
-                Send Message
+              <button className={styles.submitBtn} type="submit" disabled={loading}>
+                {loading ? 'Sending…' : 'Send Message'}
               </button>
             </form>
           )}

@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
+const cookieParser = require('cookie-parser')
 const path = require('path')
 require('dotenv').config()
 
@@ -12,6 +13,7 @@ for (const key of REQUIRED_ENV) {
 }
 const propertyController = require('./propertyController')
 const adminController = require('./adminController')
+const contactController = require('./contactController')
 
 const app = express()
 
@@ -19,6 +21,7 @@ const app = express()
 app.set('trust proxy', 1)
 
 app.use(helmet())
+app.use(cookieParser())
 
 // CORS — allow configured frontend origin
 app.use(cors({
@@ -52,6 +55,7 @@ app.use('/property/', apiLimiter)
 // API routes
 app.use('/property', propertyController)
 app.use('/api/admin', adminController)
+app.use('/api', contactController)
 
 // Serve React build locally (not used on Vercel — client is deployed separately)
 if (!process.env.VERCEL) {

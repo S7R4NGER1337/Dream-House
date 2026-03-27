@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import ErrorBoundary from "./components/ErrorBoundary";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProperties from "./pages/admin/AdminProperties";
@@ -37,7 +38,8 @@ function PublicLayout() {
     <>
       <Nav />
       <div style={{ marginTop: "5rem" }}>
-        <Suspense fallback={<div style={{ padding: "4rem", textAlign: "center" }}>Loading...</div>}>
+        <ErrorBoundary>
+        <Suspense fallback={<div style={{ padding: "4rem", textAlign: "center", color: "#94a3b8" }}>Loading…</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutUs />} />
@@ -48,6 +50,7 @@ function PublicLayout() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </div>
       <Footer />
     </>

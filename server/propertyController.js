@@ -1,6 +1,17 @@
 const router = require('express').Router()
 const propertyManager = require('./propertyManager')
+const Property = require('./models/Property')
 const auth = require('./middleware/auth')
+
+// Must be before /:id to avoid being matched as an id
+router.get('/featured', async (_req, res) => {
+  try {
+    const properties = await Property.find().sort({ _id: -1 }).limit(4).populate('agent').lean()
+    res.json(properties)
+  } catch {
+    res.status(500).json({ error: 'Failed to fetch featured properties' })
+  }
+})
 
 router.get('/getAll', async (_req, res) => {
   try {

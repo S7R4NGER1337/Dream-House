@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
   agent: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent' },
-  name: String,
-  price: Number,
-  location: String,
+  name: { type: String, required: true, trim: true, maxlength: 200 },
+  price: { type: Number, required: true, min: 0 },
+  location: { type: String, required: true, trim: true, maxlength: 300 },
   images: [String],
   coverImage: String,
-  description: String,
+  description: { type: String, trim: true, maxlength: 5000 },
   amenities: [String],
-  beds: Number,
-  baths: Number,
-  sqft: Number,
-  build: Number,
-  status: Boolean,
+  beds: { type: Number, min: 0 },
+  baths: { type: Number, min: 0 },
+  sqft: { type: Number, min: 0 },
+  build: { type: Number, min: 1800, max: 2100 },
+  status: { type: Boolean, default: true },
 });
 
 PropertySchema.index({ agent: 1 })

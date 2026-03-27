@@ -9,17 +9,14 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const ac = new AbortController()
-    fetch('/api/admin/stats', {
-      headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
-      signal: ac.signal,
-    })
+    fetch('/api/admin/stats', { credentials: 'include', signal: ac.signal })
       .then(r => {
-        if (r.status === 401) { localStorage.removeItem('adminToken'); navigate('/admin'); return null }
+        if (r.status === 401) { navigate('/admin'); return null }
         if (!r.ok) throw new Error('Failed to fetch stats')
         return r.json()
       })
       .then(d => { if (d) setStats(d) })
-      .catch(() => {})
+      .catch(err => { if (err.name !== 'AbortError') console.error(err) })
 
     return () => ac.abort()
   }, [navigate])
